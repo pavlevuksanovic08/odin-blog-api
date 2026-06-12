@@ -57,6 +57,10 @@ export const getPostById = async (req, res, next) => {
         const post = await prisma.post.findUniqueOrThrow({
             where: {
                 id: Number(id)
+            },
+            include: {
+                author: true,
+                comments: true
             }
         })
 
