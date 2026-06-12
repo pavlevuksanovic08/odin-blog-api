@@ -2,10 +2,14 @@ import "dotenv/config"
 import express from "express"
 import postRoute from "./routes/post.js"
 import { flatCommentRoute } from "./routes/comment.js";
+import { postRegister, postLogin } from "./controllers/authentication.js";
 
 const app = express();
 
 app.use(express.json())
+
+app.post('/register', postRegister)
+app.post('/login', postLogin)
 
 app.use('/posts', postRoute);
 app.use('/comments', flatCommentRoute)
