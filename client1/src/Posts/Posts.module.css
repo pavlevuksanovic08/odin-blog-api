@@ -1,0 +1,26 @@
+/* The wrapper container (centers the whole grid box on the screen) */
+.postHolder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100%; 
+    box-sizing: border-box;
+    margin: 2% auto;
+}
+
+/* The actual grid layout */
+.posts {
+    display: grid;
+    /* Forces exactly 3 equal horizontal columns */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    
+    /* Centers the individual item cards inside their grid cells */
+    justify-items: center; 
+    align-items: center;
+    
+    /* Restricts max width so it looks elegant on ultra-wide screens */
+    width: 100%;
+    max-width: 1700px; 
+}

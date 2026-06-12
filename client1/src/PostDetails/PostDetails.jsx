@@ -1,0 +1,6 @@
+
+function PostDetails({data}) {
+    return (
+        <></>
+    )
+}
