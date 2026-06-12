@@ -2,18 +2,19 @@
 import { Router } from "express";
 import * as controller from "../controllers/post.js"
 import {nestedCommentRoute} from "./comment.js"
+import { verifyToken } from "../controllers/authorization.js";
 
 const router = Router();
 
 router.get('/', controller.getAllPosts)
 
-router.post('/', controller.postNewPost)
+router.post('/', verifyToken, controller.postNewPost)
 
 router.get('/:id', controller.getPostById)
 
-router.put('/:id', controller.putPostById)
+router.put('/:id', verifyToken, controller.putPostById)
 
-router.delete('/:id', controller.deletePostById)
+router.delete('/:id', verifyToken, controller.deletePostById)
 
 router.use('/:id/comments', nestedCommentRoute)
 

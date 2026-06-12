@@ -39,7 +39,8 @@ export const postNewComment = [
             const comment = await prisma.comment.create({
                 data: {
                     content: content,
-                    postId: Number(postId)
+                    postId: Number(postId),
+                    authorId: req.user.id
                 }
             })
 
@@ -81,7 +82,19 @@ export const putCommentById = [
                 throw error
             }
 
-            const comment = await prisma.comment.update({
+            const comment = await prisma.comment.findUnique({
+                where: {
+                    id: Number(id),
+                }
+            })
+
+            if (comment.authorId !== req.user.id) {
+                const error = new Error("Forbidden: You do not have permission to modify this resource.")
+                error.status = 403
+                throw error
+            }
+
+            const updated = await prisma.comment.update({
                 where: {
                     id: Number(id)
                 },
@@ -90,7 +103,7 @@ export const putCommentById = [
                 }
             })
 
-            res.status(200).json({ comment  })
+            res.status(200).json({ updated })
         } catch (err) {
             next(err)
         } 
@@ -100,6 +113,18 @@ export const putCommentById = [
 export const deleteCommentById = async (req, res, next) => {
     try {
         const id = req.params.id
+
+        const comment = await prisma.comment.findUnique({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if (comment.authorId !== req.user.id) {
+            const error = new Error("Forbidden: You do not have permission to delete this resource.")
+            error.status = 403
+            throw error
+        }
 
         await prisma.comment.delete({
             where: {

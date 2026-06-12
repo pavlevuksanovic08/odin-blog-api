@@ -38,7 +38,7 @@ export const postNewPost = [
                 data: {
                     title: title,
                     content: content,
-                    //ADD USER  
+                    authorId: req.user.id 
                 }
             })
 
@@ -80,17 +80,30 @@ export const putPostById = [
                 throw error;
             }
 
-            const post = await prisma.post.update({
+            const post = await prisma.post.findUnique({
+                where: {
+                    id: Number(id)
+                }
+            })
+
+            if (post.authorId !== req.user.id) {
+                const error = new Error("Forbidden: You do not have permission to modify this resource.")
+                error.status = 403
+                throw error
+            }
+
+            const updated = await prisma.post.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
                     title: title,
-                    content: content
+                    content: content,
+                    authorId: req.user.id
                 }
             })
 
-            res.status(200).json({ post })
+            res.status(200).json({ updated })
         } catch (err) {
             next(err)
         }
@@ -99,6 +112,18 @@ export const putPostById = [
 export const deletePostById = async (req, res, next) => {
     try {
         const id = req.params.id;
+
+        const post = await prisma.post.findUnique({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if (post.authorId !== req.user.id) {
+            const error = new Error("Forbidden: You do not have permission to delete this resource.")
+            error.status = 403
+            throw error
+        }
 
         const deletedPost = await prisma.post.delete({
             where: {
