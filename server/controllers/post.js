@@ -60,7 +60,11 @@ export const getPostById = async (req, res, next) => {
             },
             include: {
                 author: true,
-                comments: true
+                comments: {
+                    include: {
+                        author: true
+                    }
+                }
             }
         })
 
