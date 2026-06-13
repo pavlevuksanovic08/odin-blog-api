@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Post Details Layout Engine
+   ========================================================================== */
+
+/* The main container wrapping the entire post card layout */
+.card {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: clamp(1.5rem, 3vw, 3rem); /* Fluid padding scaling with screen size */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 
+                0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #2d3748;
+}
+
+/* Post Title Styling */
+.card > p:first-of-type {
+    font-size: clamp(1.75rem, 1rem + 2.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.25;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+/* Post Main Content / Body Text Styling */
+.card > p:nth-of-type(2) {
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+    line-height: 1.7;
+    color: #4a5568;
+    margin-bottom: 2rem;
+    white-space: pre-wrap; /* Preserves database paragraphs/line breaks safely */
+}
+
+/* Meta Data Box (Date & Author Info) */
+.flexbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    color: #718096;
+    font-weight: 500;
+}
+
+.flexbox p {
+    margin: 0;
+}
+
+/* ==========================================================================
+   Comments Section Styling
+   ========================================================================== */
+
+/* Main Comments Section Heading */
+.card h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.025em;
+}
+
+/* Individual Comment Card Structure */
+.comment {
+    background-color: #f7fafc;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Subtle elevation when hovering over a comment card */
+.comment:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Comment Author Label */
+.comment p:first-of-type {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a5568;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem 0;
+}
+
+/* Comment Core Text Body */
+.comment p:nth-of-type(2) {
+    font-size: 0.975rem;
+    line-height: 1.5;
+    color: #2d3748;
+    margin: 0 0 0.75rem 0;
+}
+
+/* Comment Timestamp Details */
+.comment p:last-of-type {
+    font-size: 0.8rem;
+    color: #a0aec0;
+    margin: 0;
+    text-align: right;
+}
