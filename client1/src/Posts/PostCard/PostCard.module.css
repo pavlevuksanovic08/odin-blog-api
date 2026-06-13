@@ -9,6 +9,12 @@
     cursor: pointer;
 }
 
+.backLink {
+    text-decoration: none; /* Sklanja donju crtu */
+    color: inherit;        /* Link nasleđuje boju teksta od roditeljskog elementa (umesto plave) */
+    cursor: pointer;
+}
+
 .title {
     font-weight: bold;
     font-size: clamp(1.5rem, 1.1vw, 2.625rem);
